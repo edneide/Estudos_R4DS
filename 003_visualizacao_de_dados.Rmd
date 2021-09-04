@@ -1,0 +1,65 @@
+---
+title: "R para Data Science"
+subtitle: "Capítulo 3: Visualização de dados"
+author: "<img src = '' width = '50%'>"
+institute: "Edneide Ramalho"
+date: "02 de Setembro de 2021"
+enconding: "UTF-8"
+output:
+  xaringan::moon_reader:
+    css: ["rladies", "rladies-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+```{r, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig.align='center')
+```
+
+
+# 💻 Pré-requisitos
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+
+
+
+---
+# 💻 Base de dados `mpg`
+
+```{r, eval=FALSE}
+glimpse(mpg)
+head(mpg)
+```
+
+- Mais detalhes sobre a base de dados: `?mpg`
+
+---
+# 💻 Base de dados `mpg`
+
+---
+# 💻 Base de dados `mpg`
+
+
+
+---
+# 💻 
+
+---
+# 💻
+
+---
+# 💻 
+
+---
+# 💻 
+
+---
+# 💻 
+
+
+
