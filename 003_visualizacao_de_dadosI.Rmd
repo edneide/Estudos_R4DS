@@ -1,0 +1,104 @@
+---
+title: "Capítulo 3 - Visualização de dados"
+author: "Edneide Ramalho"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+    html_document:
+      highlight: textmate
+      logo: logo.png
+      theme: flatly
+      number_sections: yes
+      toc: yes
+      toc_float:
+        collapsed: yes
+        smooth_scroll: no
+---
+
+# Pré-requisito
+
+```{r pacotes, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+# Base de dados
+
+```{r base de dados}
+glimpse(mpg)
+```
+
+# Gráficos
+
+## Gráfico de dispersão
+
+```{r grafico de dispersão}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy))
+```
+
+-   **Fazer exercícios 3.2.4** (<https://r4ds.had.co.nz/data-visualisation.html>)
+
+### Adicionando cores
+
+```{r grafico de dispersão colorido}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy, color = class))
+```
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy), color = "blue")
+```
+
+### Alterando o tamanho
+
+```{r}
+mpg %>% 
+  ggplot() + 
+  geom_point(aes(x = displ, y = hwy, size = class))
+```
+
+### Alterando a transparência
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy, alpha = class))
+```
+
+### Alterando a forma dos pontos
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy, shape = class))
+```
+
+-   **Fazer os exercícios 3.3.1**
+
+### Facets - Facetas
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_wrap(~ class, nrow = 2)
+```
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(drv ~ cyl)
+```
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy)) +
+  facet_grid(. ~ cyl)
+```
+
+-   **Fazer exercícios 3.5.1**
