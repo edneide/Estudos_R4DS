@@ -1,0 +1,82 @@
+---
+title: "Exercícios - Visualização de Dados (Capítulo 1)"
+author: "Edneide Ramalho"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+    html_document:
+      highlight: textmate
+      logo: logo.png
+      theme: cerulean
+      number_sections: yes
+      toc: yes
+      toc_float:
+        collapsed: yes
+        smooth_scroll: no
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
+# Exercícios
+
+## Run `ggplot(data = mpg)`. What do you see?
+
+```{r}
+library(tidyverse)
+ggplot(data = mpg)
+```
+
+Vemos uma tela cinza, sem eixos e sem gráfico.
+
+## How many rows are in `mtcars`? How many columns?
+
+```{r}
+dim(mtcars)
+```
+
+A base de dados `mtcars` tem 32 linhas e 11 colunas.
+
+## What does the `drv` variable describe? Read the help for `?mpg` to find out
+
+```{r, include=FALSE}
+# ?mpg
+```
+
+-   `drv`: The type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd
+
+-   Trem de força ou transmissão do carro (tração): dianteira, traseira e 4 x 4.
+
+-   Pacote de tradução das bases de dados do R.
+
+```{r}
+# install.packages("remotes")
+# remotes::install_github("cienciadedatos/dados")
+```
+
+```{r}
+library(dados)
+glimpse(milhas)
+```
+
+## Make a scatterplot of `hwy` versus `cyl`.
+
+```{r}
+mpg %>% 
+  ggplot(aes(x = cyl, y = hwy)) +
+  geom_point()
+```
+
+```{r}
+class(mpg$cyl)
+```
+
+## What happens if you make a scatterplot of `class` versus `drv`? Why is the plot not useful?
+
+```{r}
+mpg %>% 
+  ggplot(aes(x = drv, y = class)) +
+  geom_point()
+```
+
+Porque temos duas variáveis categóricas. Gráficos de dispersão são mais úteis para verificar relações entre variáveis numéricas.
