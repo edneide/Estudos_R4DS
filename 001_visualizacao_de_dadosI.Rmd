@@ -14,6 +14,10 @@ output:
         smooth_scroll: no
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
+```
+
 # Pré-requisito
 
 ```{r pacotes, warning=FALSE, message=FALSE}
@@ -103,5 +107,103 @@ mpg %>%
 
 -   **Fazer exercícios 3.5.1**
 
+# Objetos geométricos
 
+-   Gráfico de dispersão:
 
+```{r}
+graf_dispersao <- mpg %>% 
+  ggplot() +
+  geom_point(aes(x = displ, y = hwy))
+```
+
+-   Gráfico com linha tendência:
+
+```{r}
+graf_smooth <- mpg %>% 
+  ggplot() +
+  geom_smooth(aes(x = displ, y = hwy))
+```
+
+-   Juntando vários gráficos:
+
+```{r}
+library(patchwork)
+graf_dispersao + graf_smooth
+```
+
+-   Diferentes tipos de linha:
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_smooth(aes(x = displ, y = hwy, linetype = drv))
+```
+
+-   Adicionando cor e pontos:
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_smooth(aes(x = displ, y = hwy, linetype = drv, color = drv)) +
+  geom_point(aes(x = displ, y = hwy, color = drv))
+```
+
+-   Tirando o intervalo de confiança:
+
+```{r}
+mpg %>% 
+  ggplot() +
+  geom_smooth(aes(x = displ, y = hwy, linetype = drv, color = drv),
+              se = FALSE) +
+  geom_point(aes(x = displ, y = hwy, color = drv))
+```
+
+-   **Extensões do ggplot2**:
+
+    -   <https://exts.ggplot2.tidyverse.org/gallery/>
+
+-   **Cheatsheet**:
+
+    -   <https://www.rstudio.com/resources/cheatsheets/>
+
+-   3 gráficos diferentes:
+
+```{r}
+plot1 <- mpg %>% 
+  ggplot() + 
+  geom_smooth(aes(x = displ, y = hwy))
+
+plot2 <- mpg %>% 
+  ggplot() + 
+  geom_smooth(aes(x = displ, y = hwy, group = drv))
+
+plot3 <- mpg %>% 
+  ggplot() + 
+  geom_smooth(aes(x = displ, y = hwy, color = drv),
+              show.legend = FALSE)
+
+plot1 + plot2 + plot3
+```
+
+-   Dois mapeamentos:
+
+```{r}
+mpg %>% 
+  ggplot(aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth()
+```
+
+-   Dois mapeamentos diferentes:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(aes(color = class)) +
+  geom_smooth(
+    data = filter(mpg, class == "subcompact"),
+    se = FALSE
+  )
+```
+
+# Transformações Estatísticas

@@ -18,7 +18,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
 ```
 
-# Exercícios
+# Exercícios - Pág. 6
 
 ## Run `ggplot(data = mpg)`. What do you see?
 
@@ -80,3 +80,73 @@ mpg %>%
 ```
 
 Porque temos duas variáveis categóricas. Gráficos de dispersão são mais úteis para verificar relações entre variáveis numéricas.
+
+# Exercícios - Pág. 12
+
+## What's gone wrong with this code? Why are the points not blue?
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy, color = "blue"))
+```
+
+## Which variables in mpg are categorical? Which variables are continuous? (Hint: type ?mpg to read the documentation for the dataset.) How can you see this information when you run mpg?
+
+## Map a continuous variable to color, size, and shape. How do these aesthetics behave differently for categorical versus continuous variables?
+
+## What happens if you map the same variable to multiple aesthetics?
+
+## What does the stroke aesthetic do? What shapes does it work with? (Hint: use `?geom_point`.)
+
+```{r}
+library(ggplot2)
+?geom_point
+vignette("ggplot2-specs")
+```
+
+-   `Stroke` é a largura da marca ao redor do ponto.
+
+```{r}
+sizes <- expand.grid(size = (0:3) * 2, stroke = (0:3) * 2)
+```
+
+-   Aqui, o `stroke` é mapeado pela variável `stroke`, ou seja, quanto maior o valor, maior a marca em torno do ponto.
+
+```{r}
+ggplot(sizes, aes(size, stroke, size = size, stroke = stroke)) + 
+  geom_abline(slope = -1, intercept = 6, colour = "white", size = 6) + 
+  geom_point(shape = 21, fill = "red") +
+  scale_size_identity()
+```
+
+-   Alterando os valores da estética `stroke`:
+
+```{r}
+ggplot(sizes, aes(size, stroke, size = size, stroke = 2)) + 
+  geom_abline(slope = -1, intercept = 6, colour = "white", size = 6) + 
+  geom_point(shape = 21, fill = "red") +
+  scale_size_identity()
+```
+
+-   Note that shapes 21-24 have both stroke `colour` and a `fill`.
+
+-   A estética `stroke` só funciona com as formas de 21 a 24.
+
+-   Mais um exemplo:
+
+```{r}
+library(tidyverse)
+glimpse(mpg)
+```
+
+```{r}
+iris %>% 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width)) +
+  geom_point(size = 2, 
+             stroke = 1, 
+             shape = 21, 
+             fill = "yellow",
+             color = "red")
+```
+
+## What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`?
