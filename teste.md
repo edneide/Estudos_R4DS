@@ -1,8 +1,8 @@
----
-title: "Capítulo 3 - Visualização de dados"
-author: "Edneide Ramalho"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
----
+
+# Capítulo 3 - Visualização de dados
+author: Edneide Ramalho
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE)
