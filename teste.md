@@ -2,16 +2,6 @@
 title: "Capítulo 3 - Visualização de dados"
 author: "Edneide Ramalho"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
-output: 
-    html_document:
-      highlight: textmate
-      logo: logo.png
-      theme: flatly
-      number_sections: yes
-      toc: yes
-      toc_float:
-        collapsed: yes
-        smooth_scroll: no
 ---
 
 ```{r setup, include=FALSE}
