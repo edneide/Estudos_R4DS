@@ -150,3 +150,51 @@ iris %>%
 ```
 
 ## What happens if you map an aesthetic to something other than a variable name, like `aes(color = displ < 5)`?
+
+# Exercícios - Página 26
+
+## Questão 1
+
+**What is the default geom associated with `stat_summary()`?**
+
+**How could you rewrite the previous plot to use that geom function**
+
+**instead of the stat function?**
+
+-   Geometria padrão:
+
+```{=html}
+<!-- -->
+```
+    geom = "pointrange"
+
+-   Usando a função `geom`:
+
+```{r}
+# Usando o caminho mais difícil
+diamonds2 <- diamonds %>% 
+  group_by(cut) %>% 
+  summarise(min = min(depth),
+            max = max(depth),
+            median = median(depth))
+names(diamonds2)
+
+ggplot(data = diamonds2, aes(x = cut, y = median)) +
+  geom_pointrange(
+    aes(
+    ymin = min,
+    ymax = max
+    ))
+```
+
+```{r}
+# Caminho mais fácil
+ggplot(data = diamonds) +
+  geom_pointrange(
+    mapping = aes(x = cut, y = depth),
+    stat = "summary",
+    fun.min = min,
+    fun.max = max,
+    fun = median
+  )
+```

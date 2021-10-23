@@ -207,3 +207,111 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 ```
 
 # Transformações Estatísticas
+
+-   Gráfico de barras:
+
+```{r}
+ggplot(data = diamonds) +
+  geom_bar(aes(x = cut))
+```
+
+```{r}
+# Tabela
+tabela <- table(diamonds$cut)
+
+# Proporção
+round(100 * prop.table(table(diamonds$cut)), 2)
+```
+
+```{r}
+head(diamonds)
+```
+
+```{r}
+ggplot(data = table) +
+  geom_bar(aes(x = cut))
+```
+
+```{r}
+class(table)
+```
+
+```{r}
+?geom_bar
+```
+
+-   Usando `stat_count`
+
+```{r}
+ggplot(data = diamonds) +
+  stat_count(aes(x = cut))
+```
+
+-   Usando `identity`:
+
+```{r}
+# criação de uma base de dados na "mão"
+demo <- tribble(
+~a, ~b,
+"bar_1", 20,
+"bar_2", 30,
+"bar_3", 40
+)
+```
+
+```{r}
+class(demo)
+```
+
+```{r}
+ggplot(data = demo) +
+  geom_bar(aes(x = a, y = b),
+           stat = "identity")
+```
+
+-   Gráfico de barras com proporções:
+
+```{r}
+ggplot(data = diamonds) +
+  geom_bar(aes(x = cut, y = ..prop.., group = 1))
+```
+
+-   Chamar atenção para alguma transformação estatística:
+
+```{r}
+ggplot(data = diamonds) +
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+)
+
+```
+
+```{r}
+?stat_summary
+```
+
+```{r}
+# ggplot(data = diamonds) +
+# stat_summary(
+#   mapping = NULL,
+#   data = NULL,
+#   geom = "pointrange",
+#   position = "identity",
+#   ...,
+#   fun.data = NULL,
+#   fun = NULL,
+#   fun.max = NULL,
+#   fun.min = NULL,
+#   fun.args = list(),
+#   na.rm = FALSE,
+#   orientation = NA,
+#   show.legend = NA,
+#   inherit.aes = TRUE,
+#   fun.y,
+#   fun.ymin,
+#   fun.ymax
+# )
+```
