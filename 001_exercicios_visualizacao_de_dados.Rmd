@@ -163,9 +163,8 @@ iris %>%
 
 -   Geometria padrão:
 
-```{=html}
 <!-- -->
-```
+
     geom = "pointrange"
 
 -   Usando a função `geom`:

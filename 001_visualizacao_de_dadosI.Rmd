@@ -227,19 +227,6 @@ round(100 * prop.table(table(diamonds$cut)), 2)
 head(diamonds)
 ```
 
-```{r}
-ggplot(data = table) +
-  geom_bar(aes(x = cut))
-```
-
-```{r}
-class(table)
-```
-
-```{r}
-?geom_bar
-```
-
 -   Usando `stat_count`
 
 ```{r}
@@ -293,25 +280,93 @@ ggplot(data = diamonds) +
 ?stat_summary
 ```
 
+# Position Adjustments (Ajustes de Posições)
+
+-   Podemos usar `color` ou `fill` para gráficos de barras:
+
 ```{r}
-# ggplot(data = diamonds) +
-# stat_summary(
-#   mapping = NULL,
-#   data = NULL,
-#   geom = "pointrange",
-#   position = "identity",
-#   ...,
-#   fun.data = NULL,
-#   fun = NULL,
-#   fun.max = NULL,
-#   fun.min = NULL,
-#   fun.args = list(),
-#   na.rm = FALSE,
-#   orientation = NA,
-#   show.legend = NA,
-#   inherit.aes = TRUE,
-#   fun.y,
-#   fun.ymin,
-#   fun.ymax
-# )
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, color = cut))
+
 ```
+
+```{r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = cut))
+```
+
+-   Mapeando o `fill` com a variável `clarity`:
+
+```{r}
+ggplot(data = diamonds) +
+  geom_bar(mapping = aes(x = cut, fill = clarity))
+```
+
+-   As barras ficam empilhadas. Se não quisermos que isso ocorra, podemos usar 3 opções:
+
+    -   "identity"
+
+    -   "dodge"
+
+    -   "fill"
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(alpha = 1/4, position = "identity") +
+  theme_bw()
+```
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, color = clarity)) +
+  geom_bar(fill = NA, position = "identity") +
+  theme_bw()
+```
+
+-   position = "fill", todas a barras ficam com a mesma altura, e o fill preenche de maneira percentual cada barra dependendo da variável `clarity`:
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(position = "fill") +
+  theme_bw()
+```
+
+-   position = "dodge", as barras ficam lado a lado e melhora a comparação de valores individuais:
+
+```{r}
+ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) +
+  geom_bar(position = "dodge") +
+  theme_bw()
+```
+
+-   Tabela de contingência:
+
+```{r}
+tab <- table(diamonds$cut, diamonds$clarity)
+tab
+```
+
+-   Proporção:
+
+```{r}
+round(100 * prop.table(tab, 1), 2)
+```
+
+-   Gráfico de dispersão:
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point()
+```
+
+```{r}
+dim(mpg)
+```
+
+-   position = "jitter"
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy)) +
+  geom_point(position = "jitter", alpha = 0.4)
+```
+
+-   Help: ?position_dodge, ?position_fill, ?position_identity, ?position_jitter, and ?position_stack.
